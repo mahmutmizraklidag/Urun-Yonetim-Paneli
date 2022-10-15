@@ -2,47 +2,51 @@
 using Microsoft.AspNetCore.Mvc;
 using MMStore.Entities;
 using MMStore.Service.Repositories;
+using MMStore.WebUI.Utils;
 
 namespace MMStore.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AppUsersController : Controller
+    public class BrandsController : Controller
     {
-        private readonly IRepository<AppUser> _repository;
+        private readonly IRepository<Brand> _repository;
 
-        public AppUsersController(IRepository<AppUser> repository)
+        public BrandsController(IRepository<Brand> repository)
         {
             _repository = repository;
         }
 
-        // GET: AppUsersController
+        // GET: BrandsController
         public async Task<ActionResult> Index()
         {
             var model = await _repository.GetAllAsync();
             return View(model);
         }
 
-        // GET: AppUsersController/Details/5
+        // GET: BrandsController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: AppUsersController/Create
+        // GET: BrandsController/Create
         public ActionResult Create()
         {
+
             return View();
         }
 
-        // POST: AppUsersController/Create
+        // POST: BrandsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(AppUser entity)
+        public async Task<ActionResult> CreateAsync(Brand entity,IFormFile? Image)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (Image is not null) entity.Image = await FileHelper.FileLoaderAsync(Image);
+                    
                     await _repository.AddAsync(entity);
                     await _repository.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -55,24 +59,25 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
             return View(entity);
         }
 
-        // GET: AppUsersController/Edit/5
+        // GET: BrandsController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
-        
-            var user = await _repository.FindAsync(id);
-            return View(user);
+            var brand = await _repository.FindAsync(id);
+            return View(brand);
         }
 
-        // POST: AppUsersController/Edit/5
+        // POST: BrandsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, AppUser appUser)
+        public async Task<ActionResult> EditAsync(int id, Brand entity,IFormFile? Image)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _repository.Update(appUser);
+                    if (Image is not null) entity.Image = await FileHelper.FileLoaderAsync(Image);
+
+                    _repository.Update(entity);
                     await _repository.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -81,33 +86,31 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-            
-            return View(appUser);
+            return View(entity);
         }
 
-        // GET: AppUsersController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        // GET: BrandsController/Delete/5
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            var user = await _repository.FindAsync(id);
-            return View(user);
+            var brand = await _repository.FindAsync(id);
+            return View(brand);
         }
 
-        // POST: AppUsersController/Delete/5
+        // POST: BrandsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, AppUser appUser)
+        public async Task<ActionResult> DeleteAsync(int id,Brand entity)
         {
             try
             {
-                _repository.Delete(appUser);
+                _repository.Delete(entity);
                 await _repository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                
+                return View(entity);
             }
-            return View(appUser);
         }
     }
 }
