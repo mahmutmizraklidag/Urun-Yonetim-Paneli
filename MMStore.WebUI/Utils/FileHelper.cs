@@ -13,5 +13,15 @@ namespace MMStore.WebUI.Utils
             await formFile.CopyToAsync(stream);
             return fileName;
         }
+        public static bool FileRemover(string fileName, string filePath = "/wwwroot/img/")
+        {
+            string directory = Directory.GetCurrentDirectory() + filePath + fileName;
+            if (File.Exists(directory)==true) 
+            {
+                File.Delete(directory); 
+                return true;
+            }
+            return false;
+        }
     } 
 }

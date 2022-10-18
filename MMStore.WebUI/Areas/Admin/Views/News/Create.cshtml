@@ -1,20 +1,17 @@
-﻿@model MMStore.Entities.Brand
+﻿@model News
 
 @{
-    ViewData["Title"] = "Marka Düzenle";
+    ViewData["Title"] = "Haber Ekle";
 }
 
-<h1>Marka Düzenle</h1>
+<h1>Haber Ekle</h1>
 
-<h4>Marka</h4>
+<h4>Haber</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="Image" />
-            <input type="hidden" asp-for="CreateDate" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -29,13 +26,6 @@
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" class="form-control" type="file"/>
                 <span asp-validation-for="Image" class="text-danger"></span>
-                @if (Model.Image!=null)
-                {
-                    <img src="/img/@Model.Image" alt="" height="75" />
-                    <label>
-                        @Html.CheckBox("resmiSil") Resmi Sil
-                    </label>
-                }
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -43,8 +33,8 @@
                 </label>
             </div>
             <div class="form-group mt-2">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
-                <a class="btn btn-warning" asp-action="Index">Listeye Dön</a>
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+                <a class="btn btn-warning" asp-action="Index">Listeye Ekle</a>
             </div>
         </form>
     </div>

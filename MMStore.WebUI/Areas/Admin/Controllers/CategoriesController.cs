@@ -65,23 +65,29 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
         }
 
         // GET: CategoriesController/Edit/5
-        public async Task<ActionResult> EditAsync(int id)
+        public async Task<ActionResult> EditAsync(int? id)
         {
-            var brand = await _repository.FindAsync(id);
+            if (id == null) { return BadRequest(); }
+            var category = await _repository.FindAsync(id.Value);
+            if (category == null) { return BadRequest(); }
             var list = await _repository.GetAllAsync();
             ViewBag.ParentId = new SelectList(list, "Id", "Name");
-            return View(brand);
+            return View(category);
         }
 
         // POST: CategoriesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, Category entity, IFormFile? Image)
+        public async Task<ActionResult> EditAsync(int id, Category entity, IFormFile? Image,bool? resmiSil)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    if (resmiSil == true)
+                    {
+                        entity.Image = string.Empty;
+                    }
                     if (Image is not null) entity.Image = await FileHelper.FileLoaderAsync(Image);
 
                     _repository.Update(entity);
@@ -97,12 +103,14 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
         }
 
         // GET: CategoriesController/Delete/5
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> DeleteAsync(int? id)
         {
-            var brand = await _repository.FindAsync(id);
+            if (id == null) { return BadRequest(); }
+            var category = await _repository.FindAsync(id.Value);
+            if (category == null) { return BadRequest(); }
             var list = await _repository.GetAllAsync();
             ViewBag.ParentId = new SelectList(list, "Id", "Name");
-            return View(brand);
+            return View(category);
         }
 
         // POST: CategoriesController/Delete/5

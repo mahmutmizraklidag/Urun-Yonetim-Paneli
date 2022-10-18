@@ -1,43 +1,43 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MMStore.Entities;
 using MMStore.Service.Repositories;
 
 namespace MMStore.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AppUsersController : Controller
+    public class CustomersController : Controller
     {
-        private readonly IRepository<AppUser> _repository;
+        private readonly IRepository<Customer> _repository;
 
-        public AppUsersController(IRepository<AppUser> repository)
+        public CustomersController(IRepository<Customer> repository)
         {
             _repository = repository;
         }
-
-        // GET: AppUsersController
+        // GET: CustomersController
         public async Task<ActionResult> Index()
         {
             var model = await _repository.GetAllAsync();
             return View(model);
         }
 
-        // GET: AppUsersController/Details/5
+        // GET: CustomersController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: AppUsersController/Create
+        // GET: CustomersController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: AppUsersController/Create
+        // POST: CustomersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync(AppUser entity)
+        public async Task<ActionResult> CreateAsync(Customer entity)
         {
             if (ModelState.IsValid)
             {
@@ -55,25 +55,25 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
             return View(entity);
         }
 
-        // GET: AppUsersController/Edit/5
+        // GET: CustomersController/Edit/5
         public async Task<ActionResult> EditAsync(int? id)
         {
             if (id == null) { return BadRequest(); }
-            var user = await _repository.FindAsync(id.Value);
-            if (user == null) { return BadRequest(); }
-            return View(user);
+            var customer = await _repository.FindAsync(id.Value);
+            if (customer == null) { return BadRequest();}
+            return View(customer);
         }
 
-        // POST: AppUsersController/Edit/5
+        // POST: CustomersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync(int id, AppUser appUser)
+        public async Task<ActionResult> EditAsync(int id, Customer entity)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _repository.Update(appUser);
+                    _repository.Update(entity);
                     await _repository.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -82,35 +82,34 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "Hata Oluştu!");
                 }
             }
-            
-            return View(appUser);
+
+            return View(entity);
         }
 
-        // GET: AppUsersController/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        // GET: CustomersController/Delete/5
+        public async Task<ActionResult> DeleteAsync(int? id)
         {
             if (id == null) { return BadRequest(); }
-            var user = await _repository.FindAsync(id.Value);
-            if (user == null) { return BadRequest(); }
-            return View(user);
+            var customer = await _repository.FindAsync(id.Value);
+            if (customer == null) { return BadRequest(); }
+            return View(customer);
         }
 
-        // POST: AppUsersController/Delete/5
+        // POST: CustomersController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, AppUser appUser)
+        public async Task<ActionResult> DeleteAsync(int id, Customer entity)
         {
             try
             {
-                _repository.Delete(appUser);
+                _repository.Delete(entity);
                 await _repository.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                
+                return View(entity);
             }
-            return View(appUser);
         }
     }
 }

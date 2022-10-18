@@ -1,12 +1,12 @@
-﻿@model MMStore.Entities.Brand
+﻿@model Slider
 
 @{
-    ViewData["Title"] = "Marka Düzenle";
+    ViewData["Title"] = "Slide Düzenle";
 }
 
-<h1>Marka Düzenle</h1>
+<h1>Slide Düzenle</h1>
 
-<h4>Marka</h4>
+<h4>Slide</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,17 +14,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="Image" />
-            <input type="hidden" asp-for="CreateDate" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label"></label>
                 <input asp-for="Image" class="form-control" type="file"/>
@@ -36,11 +25,22 @@
                         @Html.CheckBox("resmiSil") Resmi Sil
                     </label>
                 }
+                
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
+            <div class="form-group">
+                <label asp-for="Link" class="control-label"></label>
+                <input asp-for="Link" class="form-control" />
+                <span asp-validation-for="Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group mt-2">
                 <input type="submit" value="Kaydet" class="btn btn-primary" />
@@ -49,5 +49,3 @@
         </form>
     </div>
 </div>
-
-
