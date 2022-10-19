@@ -1,5 +1,6 @@
 using MMStore.Data;
 using MMStore.Service.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login";
+    x.AccessDeniedPath = "/AccessDenied";
+    x.LogoutPath = "/Admin/Logout";
+    x.Cookie.Name = "Admin";
+    x.Cookie.MaxAge = TimeSpan.FromDays(1);
+    x.Cookie.IsEssential = true;
+});
+
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("AdminPolicy", p => p.RequireClaim("Role", "Admin"));
+    x.AddPolicy("UserPolicy", p => p.RequireClaim("Role", "User"));
+});
 
 var app = builder.Build();
 
@@ -23,7 +40,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllerRoute(
             name: "admin",
             pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}"
