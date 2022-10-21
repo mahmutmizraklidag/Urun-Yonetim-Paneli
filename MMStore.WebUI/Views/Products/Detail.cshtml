@@ -1,0 +1,16 @@
+﻿@model Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+
+
+<div class="row">
+    <div class="col border">
+        <img src="/img/@Model.Image" alt=@Model.Name height="225"/>
+    </div>
+    <div class="col">
+        <h1>@Model.Name</h1>
+        <hr />
+    </div>
+</div>

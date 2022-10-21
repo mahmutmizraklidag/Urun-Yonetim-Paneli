@@ -10,16 +10,23 @@ namespace MMStore.WebUI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRepository<Contact> _repositoryContact;
+        private readonly IRepository<Slider> _repositorySlider;
+        private readonly IRepository<Product> _repositoryProduct;
 
-        public HomeController(ILogger<HomeController> logger, IRepository<Contact> repositoryContact)
+        public HomeController(ILogger<HomeController> logger, IRepository<Contact> repositoryContact, IRepository<Slider> repositorySlider, IRepository<Product> repositoryProduct)
         {
             _logger = logger;
             _repositoryContact = repositoryContact;
+            _repositorySlider = repositorySlider;
+            _repositoryProduct = repositoryProduct;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = new HomePageViewModel();
+            model.Products = await _repositoryProduct.GetAllAsync(c=>c.IsActive&&c.IsHome);
+            model.Sliders = await _repositorySlider.GetAllAsync();
+            return View(model);
         }
 
         public IActionResult Privacy()
