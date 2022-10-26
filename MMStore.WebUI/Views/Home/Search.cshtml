@@ -1,0 +1,32 @@
+﻿ @model SearchViewModel
+@{
+    ViewData["Title"] = "Arama Sonuçları";
+}
+
+<h1>Arama Sonuçları</h1>
+<hr />
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    @foreach (var item in Model.Products)
+    {
+
+        @await Html.PartialAsync("_ProductPartial",item)
+
+    }
+    @foreach (var item in Model.Brands)
+    {
+        <div class="col">
+            <div class="card shadow-sm">
+                <a href="/Brands/Index/@item.Id">
+                    <img class="bd-placeholder-img card-img-top" src="/img/@item.Image" alt=@item.Name width="100%" height="175" />
+                </a>
+                <div class="card-body">
+                    <p class="card-text">
+                        @item.Name
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

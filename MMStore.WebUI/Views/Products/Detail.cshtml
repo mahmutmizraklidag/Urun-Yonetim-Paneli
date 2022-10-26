@@ -7,10 +7,40 @@
 
 <div class="row">
     <div class="col border">
-        <img src="/img/@Model.Image" alt=@Model.Name height="225"/>
+        <img src="/img/@Model.Image" class="img-fluid" alt=@Model.Name height="225"/>
     </div>
     <div class="col">
         <h1>@Model.Name</h1>
         <hr />
+        <table class="table">
+            <tr>
+                <td>
+                    Fiyat
+                </td>
+                <td>
+                    @Model.Price TL
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Ürün Kodu
+                </td>
+                <td>
+                    @Model.ProductCode
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Stok
+                </td>
+                <td>
+                    @Model.Stock
+                </td>
+            </tr>
+        </table>
+        <div class="Row">
+            <h5>Ürün Açıklaması</h5>
+            @Model.Description
+        </div>
     </div>
 </div>

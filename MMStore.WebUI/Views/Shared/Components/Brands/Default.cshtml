@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Brand>
+@{
+
+
+    var brand = Model;
+
+<div class="dropdown">
+    <a class="btn  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Markalar
+    </a>
+
+    <ul class="dropdown-menu">
+            @foreach (var downmenu in brand)
+        {
+            <li><a class="dropdown-item" href="/Brands/Index/@downmenu.Id">@downmenu.Name</a></li>
+        }
+    </ul>
+</div>
+}

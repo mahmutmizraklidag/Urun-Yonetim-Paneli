@@ -12,13 +12,15 @@ namespace MMStore.WebUI.Controllers
         private readonly IRepository<Contact> _repositoryContact;
         private readonly IRepository<Slider> _repositorySlider;
         private readonly IRepository<Product> _repositoryProduct;
+        private readonly IRepository<Brand> _repositoryBrand;
 
-        public HomeController(ILogger<HomeController> logger, IRepository<Contact> repositoryContact, IRepository<Slider> repositorySlider, IRepository<Product> repositoryProduct)
+        public HomeController(ILogger<HomeController> logger, IRepository<Contact> repositoryContact, IRepository<Slider> repositorySlider, IRepository<Product> repositoryProduct, IRepository<Brand> repositoryBrand)
         {
             _logger = logger;
             _repositoryContact = repositoryContact;
             _repositorySlider = repositorySlider;
             _repositoryProduct = repositoryProduct;
+            _repositoryBrand = repositoryBrand;
         }
 
         public async Task<IActionResult> Index()
@@ -66,11 +68,19 @@ namespace MMStore.WebUI.Controllers
            
             return View(contact);
         }
+        public async Task<IActionResult> SearchAsync(string kelime)
+        {
+            var model = new SearchViewModel();
+            model.Brands = await _repositoryBrand.GetAllAsync(p => p.Name.Contains(kelime)||p.Description.Contains(kelime));
+            model.Products = await _repositoryProduct.GetAllAsync(p => p.Name.Contains(kelime) || p.Description.Contains(kelime));
+            return View(model);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

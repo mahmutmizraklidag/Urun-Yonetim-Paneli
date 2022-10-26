@@ -1,12 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MMStore.Entities;
+using MMStore.Service.Repositories;
 
 namespace MMStore.WebUI.Controllers
 {
     public class CategoriesController : Controller
     {
-        public IActionResult Index(int id)
+        private readonly ICategoryRepository _repository;
+
+        public CategoriesController(ICategoryRepository repository)
         {
-            return View();
+            _repository = repository;
+        }
+
+        public async Task<IActionResult> Index(int id)
+        {
+            var model =await _repository.KategoriyiUrunleriyleGetir(id);
+            if (model == null) return NotFound();
+        
+            return View(model);
         }
     }
 }
