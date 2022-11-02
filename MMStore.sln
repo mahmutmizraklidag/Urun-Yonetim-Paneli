@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMStore.Entities", "MMStore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMStore.Data", "MMStore.Data\MMStore.Data.csproj", "{D64406AB-DB6D-4218-80B8-2E41C4AE92E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMStore.Service", "MMStore.Service\MMStore.Service.csproj", "{BB50784D-AC92-46AB-B145-980D35ECB999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MMStore.Service", "MMStore.Service\MMStore.Service.csproj", "{BB50784D-AC92-46AB-B145-980D35ECB999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMStore.WebAPI", "MMStore.WebAPI\MMStore.WebAPI.csproj", "{685FCF8E-FF12-4D8B-BA8B-8BDC9B81D615}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BB50784D-AC92-46AB-B145-980D35ECB999}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB50784D-AC92-46AB-B145-980D35ECB999}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB50784D-AC92-46AB-B145-980D35ECB999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{685FCF8E-FF12-4D8B-BA8B-8BDC9B81D615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{685FCF8E-FF12-4D8B-BA8B-8BDC9B81D615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{685FCF8E-FF12-4D8B-BA8B-8BDC9B81D615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{685FCF8E-FF12-4D8B-BA8B-8BDC9B81D615}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
