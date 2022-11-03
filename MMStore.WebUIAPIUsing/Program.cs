@@ -1,17 +1,18 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using MMStore.Data;
 using MMStore.Service.Repositories;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
+builder.Services.AddHttpClient();
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
 builder.Services.AddScoped(typeof(IBrandRepository), typeof(BrandRepository));
-//builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
 {
     x.LoginPath = "/Admin/Login";
@@ -50,6 +51,7 @@ app.MapControllerRoute(
             name: "admin",
             pattern: "{area:exists}/{controller=Main}/{action=Index}/{id?}"
           );
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

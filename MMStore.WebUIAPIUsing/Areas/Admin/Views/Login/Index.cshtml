@@ -1,0 +1,41 @@
+﻿@model AdminLoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/signin.css" />
+</head>
+<body class="text-center">
+
+    <main class="form-signin w-100 m-auto">
+        <form asp-action="Index">
+            <img class="mb-4" src="/img/lock-300x300.png" alt="" width="85" height="85">
+            <h1 class="h3 mb-3 fw-normal">Lütfen Giriş Yapınız</h1>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-floating"> 
+                <input asp-for="Email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Şifre">
+                <label for="floatingPassword">Şifre</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Beni Hatırla
+                </label>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Giriş Yap</button>
+            <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
+        </form>
+    </main>
+</body>
+</html>
