@@ -5,7 +5,7 @@ using MMStore.Entities;
 
 namespace MMStore.WebUIAPIUsing.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class ContactsController : Controller
     {
         private readonly HttpClient _httpClient;

@@ -6,7 +6,7 @@ using MMStore.WebUIAPIUsing.Utils;
 
 namespace MMStore.WebUIAPIUsing.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class NewsController : Controller
     {
         private readonly HttpClient _httpClient;

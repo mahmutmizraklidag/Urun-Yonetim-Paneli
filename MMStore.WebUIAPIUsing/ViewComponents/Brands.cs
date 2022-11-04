@@ -6,16 +6,17 @@ namespace MMStore.WebUIAPIUsing.ViewComponents
 {
     public class Brands : ViewComponent
     {
-        private readonly IRepository<Brand> _repository;
-
-        public Brands(IRepository<Brand> repository)
+        private readonly HttpClient _httpClient;
+        private readonly string _apiAdress;
+        public Brands(HttpClient httpClient)
         {
-            _repository = repository;
+            _httpClient = httpClient;
+            _apiAdress = "https://localhost:7231/api/Brands";
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var brands = await _repository.GetAllAsync(c => c.IsActive);
+            var brands = await _httpClient.GetFromJsonAsync<List<Brand>>(_apiAdress);
             return View(brands);
         }
     }
