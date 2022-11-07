@@ -1,0 +1,54 @@
+﻿@model Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<!-- ======= Portfolio Details Section ======= -->
+<section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+
+        <div class="row gy-4">
+
+            <div class="col-lg-8">
+                <div class="portfolio-details-slider swiper">
+                    <div class="swiper-wrapper align-items-center">
+
+                        <div class="swiper-slide">
+                            <img src="/img/@Model.Image" alt="@Model.Name">
+                        </div>
+
+                        <div class="swiper-slide">
+                            <img src="/img/@Model.Image" alt="@Model.Name">
+                        </div>
+
+                       
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="portfolio-info">
+                    <h3>@Model.Name</h3>
+                    <ul>
+                        <li><strong>Kategori</strong>: </li>
+                        <li><strong>Marka</strong>: </li>
+                        <li><strong>Fiyat</strong>: @Model.Price TL</li>
+                        <li><strong>Ürün Stok</strong>: @Model.Stock Adet</li>
+                        
+                    </ul>
+                </div>
+                <div class="portfolio-description">
+                    <h2>Açıklama</h2>
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section><!-- End Portfolio Details Section -->
+

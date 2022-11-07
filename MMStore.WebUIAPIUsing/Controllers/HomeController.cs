@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MMStore.Entities;
 using MMStore.WebUIAPIUsing.Models;
 using System.Diagnostics;
 
@@ -22,7 +23,23 @@ namespace MMStore.WebUIAPIUsing.Controllers
             _apiAdressProduct = "https://localhost:7231/api/Products";
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var model = new HomePageViewModel();
+            model.Sliders = await _httpClient.GetFromJsonAsync<List<Slider>>(_apiAdressSlider);
+            model.Brands = await _httpClient.GetFromJsonAsync<List<Brand>>(_apiAdressBrand);
+            model.Products = await _httpClient.GetFromJsonAsync<List<Product>>(_apiAdressProduct);
+            model.News = await _httpClient.GetFromJsonAsync<List<News>>(_apiAdressNews);
+
+            return View(model);
+        }
+        [Route("AccessDenied")]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+        
+        public IActionResult ContactUs()
         {
             return View();
         }
