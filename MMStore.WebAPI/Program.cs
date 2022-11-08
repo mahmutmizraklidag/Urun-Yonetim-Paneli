@@ -18,6 +18,8 @@ builder.Services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepositor
 
 builder.Services.AddScoped(typeof(IBrandRepository), typeof(BrandRepository));
 
+builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

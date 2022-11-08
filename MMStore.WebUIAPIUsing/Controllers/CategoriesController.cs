@@ -12,10 +12,10 @@ namespace MMStore.WebUIAPIUsing.Controllers
             _httpClient = httpClient;
             _apiAdressCategory = "https://localhost:7231/api/Categories";
         }
-        public async Task<IActionResult> IndexAsync(int? id)
+        public async Task<IActionResult> Index(int? id)
         {
             if (id == null) return BadRequest();
-            var product = await _httpClient.GetFromJsonAsync<List<Category>>(_apiAdressCategory + "/" + id);
+            var product = await _httpClient.GetFromJsonAsync<Category>(_apiAdressCategory + "/" + id);
             if (product == null) return NotFound();
             return View(product);
         }

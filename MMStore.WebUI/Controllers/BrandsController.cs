@@ -12,7 +12,7 @@ namespace MMStore.WebUI.Controllers
             _brandRepository = brandRepository;
         }
 
-        public async Task<IActionResult> IndexAsync(int id)
+        public async Task<IActionResult> Index(int id)
         {
             var brand=await _brandRepository.MarkalarıUrunleriyleGetir(id);
             if(brand==null) return NotFound();
