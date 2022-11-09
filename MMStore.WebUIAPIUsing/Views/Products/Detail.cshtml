@@ -3,6 +3,21 @@
     ViewData["Title"] = Model.Name;
 }
 
+<!-- ======= Breadcrumbs ======= -->
+<section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>@Model.Name</h2>
+            <ol>
+                <li><a href="/">Anasayfa</a></li>
+                <li>@Model.Name</li>
+            </ol>
+        </div>
+
+    </div>
+</section><!-- End Breadcrumbs -->
+
 <!-- ======= Portfolio Details Section ======= -->
 <section id="portfolio-details" class="portfolio-details">
     <div class="container">
@@ -32,8 +47,8 @@
                 <div class="portfolio-info">
                     <h3>@Model.Name</h3>
                     <ul>
-                        <li><strong>Kategori</strong>: </li>
-                        <li><strong>Marka</strong>: </li>
+                        <li><strong>Kategori</strong>: @Model.Category.Name</li>
+                        <li><strong>Marka</strong>: @Model.Brand.Name</li>
                         <li><strong>Fiyat</strong>: @Model.Price TL</li>
                         <li><strong>Ürün Stok</strong>: @Model.Stock Adet</li>
                         

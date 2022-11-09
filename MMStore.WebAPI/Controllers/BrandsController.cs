@@ -10,8 +10,8 @@ namespace MMStore.WebAPI.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
-        private readonly IRepository<Brand> _repository;
-        public BrandsController(IRepository<Brand> repository)
+        private readonly IBrandRepository _repository;
+        public BrandsController(IBrandRepository repository)
         {
             _repository = repository;
         }
@@ -27,6 +27,13 @@ namespace MMStore.WebAPI.Controllers
         public async Task<ActionResult<Brand>> GetAsync(int id)
         {
             var data = await _repository.FindAsync(id);
+            if (data is null) return NotFound();
+            return data;
+        }
+        [HttpGet("GetBrandByProduct/{id}")]
+        public async Task<ActionResult<Brand>> GetBrandByProduct(int id)
+        {
+            var data = await _repository.GetBrandByProduct(id);
             if (data is null) return NotFound();
             return data;
         }

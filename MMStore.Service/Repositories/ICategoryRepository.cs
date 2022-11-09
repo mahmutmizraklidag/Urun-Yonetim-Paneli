@@ -9,6 +9,6 @@ namespace MMStore.Service.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        Task<Category> KategoriyiUrunleriyleGetir(int categoryId);
+        Task<Category> GetCategoryByProduct(int categoryId);
     }
 }

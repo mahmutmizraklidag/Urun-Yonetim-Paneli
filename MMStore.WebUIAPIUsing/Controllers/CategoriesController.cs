@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MMStore.Entities;
+using Newtonsoft.Json;
 
 namespace MMStore.WebUIAPIUsing.Controllers
 {
@@ -15,9 +16,20 @@ namespace MMStore.WebUIAPIUsing.Controllers
         public async Task<IActionResult> Index(int? id)
         {
             if (id == null) return BadRequest();
-            var product = await _httpClient.GetFromJsonAsync<Category>(_apiAdressCategory + "/" + id);
+            /*
+            var product = await _httpClient.GetFromJsonAsync<Category>(_apiAdressCategory + "/GetCategoryByProduct/" + id);
             if (product == null) return NotFound();
             return View(product);
+            */
+            var categories = await _httpClient.GetAsync(_apiAdressCategory + "/GetCategoryByProduct/" + id);
+            if (categories.IsSuccessStatusCode)
+            {
+                var response = await categories.Content.ReadAsStringAsync();
+                var model=JsonConvert.DeserializeObject<Category>(response);
+                return View(model);
+            }
+
+            return NotFound();
         }
     }
 }

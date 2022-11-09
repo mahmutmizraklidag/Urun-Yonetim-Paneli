@@ -15,7 +15,7 @@ namespace MMStore.WebUI.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            var model =await _repository.KategoriyiUrunleriyleGetir(id);
+            var model =await _repository.GetCategoryByProduct(id);
             if (model == null) return NotFound();
         
             return View(model);

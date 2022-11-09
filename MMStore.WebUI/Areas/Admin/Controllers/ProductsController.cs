@@ -11,11 +11,11 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
     [Area("Admin"), Authorize]
     public class ProductsController : Controller
     {
-        private readonly IRepository<Product> _repository;
+        private readonly IProductRepository _repository;
         private readonly IRepository<Category> _repositoryCategory;
         private readonly IRepository<Brand> _repositoryBrand;
 
-        public ProductsController(IRepository<Product> repository, IRepository<Category> repositoryCategory, IRepository<Brand> repositoryBrand)
+        public ProductsController(IProductRepository repository, IRepository<Category> repositoryCategory, IRepository<Brand> repositoryBrand)
         {
             _repository = repository;
             _repositoryCategory = repositoryCategory;
@@ -26,7 +26,7 @@ namespace MMStore.WebUI.Areas.Admin.Controllers
         // GET: ProductsController
         public async Task<ActionResult> Index()
         {
-            var model = await _repository.GetAllAsync();
+            var model = await _repository.GetProductsByCategoryAndBrand();
             return View(model);
         }
 

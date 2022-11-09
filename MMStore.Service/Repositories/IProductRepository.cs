@@ -9,6 +9,7 @@ namespace MMStore.Service.Repositories
 {
     public interface IProductRepository : IRepository<Product>
     {
-        Task<Product> UrunuKategoriVeMarkaylaGetir(int productId);
+        Task<Product> GetProductByCategoryAndBrand(int productId);
+        Task<IEnumerable<Product>> GetProductsByCategoryAndBrand();
     }
 }

@@ -10,9 +10,9 @@ namespace MMStore.WebAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly IRepository<Category> _repository;
+        private readonly ICategoryRepository _repository;
 
-        public CategoriesController(IRepository<Category> repository)
+        public CategoriesController(ICategoryRepository repository)
         {
             _repository = repository;
         }
@@ -28,6 +28,13 @@ namespace MMStore.WebAPI.Controllers
         public async Task<ActionResult<Category>> GetAsync(int id)
         {
             var data = await _repository.FindAsync(id);
+            if (data is null) return NotFound();
+            return data;
+        }
+        [HttpGet("GetCategoryByProduct/{id}")]
+        public async Task<ActionResult<Category>> GetCategoryByProduct(int id)
+        {
+            var data = await _repository.GetCategoryByProduct(id);
             if (data is null) return NotFound();
             return data;
         }

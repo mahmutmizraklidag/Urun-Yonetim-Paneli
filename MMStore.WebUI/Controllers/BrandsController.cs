@@ -14,7 +14,7 @@ namespace MMStore.WebUI.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            var brand=await _brandRepository.MarkalarıUrunleriyleGetir(id);
+            var brand=await _brandRepository.GetBrandByProduct(id);
             if(brand==null) return NotFound();
             return View(brand);
         }

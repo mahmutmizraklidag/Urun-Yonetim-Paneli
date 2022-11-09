@@ -21,7 +21,7 @@ namespace MMStore.WebUIAPIUsing.Controllers
         }
         public async Task<IActionResult> Detail(int id)
         {
-            var model = await _httpClient.GetFromJsonAsync<Brand>(_apiAdressBrand + "/" + id);
+            var model = await _httpClient.GetFromJsonAsync<Brand>(_apiAdressBrand + "/GetBrandByProduct/" + id);
             return View(model);
         }
     }

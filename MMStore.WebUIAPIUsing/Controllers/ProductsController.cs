@@ -21,7 +21,7 @@ namespace MMStore.WebUIAPIUsing.Controllers
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null) return BadRequest();
-            var product = await _httpClient.GetFromJsonAsync<Product>(_apiAdressProduct+"/"+id);
+            var product = await _httpClient.GetFromJsonAsync<Product>(_apiAdressProduct+ "/GetGetProductByCategoryAndBrand/" + id);
             if (product == null) return NotFound();
             return View(product);
         }

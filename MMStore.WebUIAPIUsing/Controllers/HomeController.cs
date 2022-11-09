@@ -38,10 +38,33 @@ namespace MMStore.WebUIAPIUsing.Controllers
         {
             return View();
         }
-        
+
         public IActionResult ContactUs()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ContactUs(Contact entity)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var response = await _httpClient.PostAsJsonAsync(_apiAdressContact, entity);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        TempData["mesaj"] = "<div class='alert alert-success'>Mesajınız Gönderildi... Teşekkürler...</div>";
+                        return RedirectToAction(nameof(ContactUs));
+                    }
+                        
+                    else ModelState.AddModelError("", "Kayıt Başarısız!");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Hata Oluştu!");
+                }
+            }
+            return View(entity);
         }
 
         public IActionResult Privacy()

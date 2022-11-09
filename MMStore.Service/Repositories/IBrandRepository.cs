@@ -4,6 +4,6 @@ namespace MMStore.Service.Repositories
 {
     public interface IBrandRepository : IRepository<Brand>
     {
-        Task<Brand> MarkalarıUrunleriyleGetir(int brandId);
+        Task<Brand> GetBrandByProduct(int brandId);
     }
 }

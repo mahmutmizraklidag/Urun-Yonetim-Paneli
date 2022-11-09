@@ -15,7 +15,12 @@ namespace MMStore.Service.Repositories
         {
         }
 
-        public async Task<Product> UrunuKategoriVeMarkaylaGetir(int productId)
+        public async Task<IEnumerable<Product>> GetProductsByCategoryAndBrand()
+        {
+            return await _databaseContext.Products.Include(c => c.Brand).Include(c => c.Category).ToListAsync();
+        }
+
+        public async Task<Product> GetProductByCategoryAndBrand(int productId)
         {
             return await _databaseContext.Products.Include(c => c.Brand).Include(c => c.Category).FirstOrDefaultAsync(c => c.Id == productId);
         }
